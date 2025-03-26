@@ -1,0 +1,316 @@
+Microsoft Windows [Version 10.0.22631.4890]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>CD C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 22
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE WEEK6;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use week6
+Database changed
+MariaDB [week6]> create table mahasiswa (
+    -> nim CHAR(10) NOT NULL PRIMARY KEY,
+    -> nama VARCHAR(50) NOT NULL,
+    -> Jenis_Kelamin ENUM('L','P') NOT NULL,
+    -> Alamat VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [week6]> DESC MAHASISWA;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| nim           | char(10)      | NO   | PRI | NULL    |       |
+| nama          | varchar(50)   | NO   |     | NULL    |       |
+| Jenis_Kelamin | enum('L','P') | NO   |     | NULL    |       |
+| Alamat        | varchar(100)  | NO   |     | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+4 rows in set (0.014 sec)
+
+MariaDB [week6]> INSERT INTO MAHASISWA (nim, nama, Jenis_Kelamin, Alamat) values
+    -> ('101', 'Arif', 'L', 'Jl. Kenangan'),
+    -> ('102', 'Budi', 'L', 'Jl. Jombang'),
+    -> ('103', 'Wati', 'P', 'Jl. Surabaya'),
+    -> ('104', 'Ika', 'P', 'Jl. Jombang'),
+    -> ('105', 'Tono', 'L', 'Jl. Jakarta'),
+    -> ('106', 'Iwan', 'L', 'Jl. Bandung'),
+    -> ('107', 'Sari', 'P', 'Jl. Malang');
+Query OK, 7 rows affected (0.003 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> SELECT * FROM MAHASISWA;
++-----+------+---------------+--------------+
+| nim | nama | Jenis_Kelamin | Alamat       |
++-----+------+---------------+--------------+
+| 101 | Arif | L             | Jl. Kenangan |
+| 102 | Budi | L             | Jl. Jombang  |
+| 103 | Wati | P             | Jl. Surabaya |
+| 104 | Ika  | P             | Jl. Jombang  |
+| 105 | Tono | L             | Jl. Jakarta  |
+| 106 | Iwan | L             | Jl. Bandung  |
+| 107 | Sari | P             | Jl. Malang   |
++-----+------+---------------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [week6]> CREATE TABLE MATAKULIAH (
+    -> Kd_MK CHAR(10) NOT NULL PRIMARY KEY,
+    -> nama_mk VARCHAR(50) NOT NULL,
+    -> SKS CHAR(10) NOT NULL,
+    -> Semester CHAR(10) NOT NULL,
+    -> Kode_Dos CHAR(10) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [week6]> DESC MATAKULIAH;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Kd_MK    | char(10)    | NO   | PRI | NULL    |       |
+| nama_mk  | varchar(50) | NO   |     | NULL    |       |
+| SKS      | char(10)    | NO   |     | NULL    |       |
+| Semester | char(10)    | NO   |     | NULL    |       |
+| Kode_Dos | char(10)    | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.014 sec)
+
+MariaDB [week6]> INSERT INTO matakuliah (Kd_MK, nama_mk, sks, semester, kode_dos) values
+    -> ('PTI123', 'Grafik Multimedia', '3', '5', '12'),
+    -> ('PTI333', 'Basis Data Terdistribusi', '3', '5', '10'),
+    -> ('PTI447', 'Praktikum Basis Data', '1', '3', '11'),
+    -> ('PTI777', 'Sistem Informasi', '2', '3', '99'),
+    -> ('TIK123', 'Jaringan Komputer', '2', '5', '33'),
+    -> ('TIK333', 'Sistem Informassi', '3', '5', '10'),
+    -> ('TIK342', 'Praktikum Basis Data', '1', '3', '11');
+Query OK, 7 rows affected (0.004 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> select * from matakuliah;
++--------+--------------------------+-----+----------+----------+
+| Kd_MK  | nama_mk                  | SKS | Semester | Kode_Dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI447 | Praktikum Basis Data     | 1   | 3        | 11       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK123 | Jaringan Komputer        | 2   | 5        | 33       |
+| TIK333 | Sistem Informassi        | 3   | 5        | 10       |
+| TIK342 | Praktikum Basis Data     | 1   | 3        | 11       |
++--------+--------------------------+-----+----------+----------+
+7 rows in set (0.001 sec)
+
+MariaDB [week6]> create tabel jurusan (
+    -> kode_jur VARCHAR(5) NOT NULL PRIMARY KEY,
+    -> nama_jur VARCHAR(50) NOT NULL,
+    -> kode_dos CHAR(5) NOT NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tabel jurusan (
+kode_jur VARCHAR(5) NOT NULL PRIMARY KEY,
+nama_jur VARCHAR(50...' at line 1
+MariaDB [week6]> CREATE TABLE JURUSAN (
+    -> kode
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 3
+MariaDB [week6]> CREATE TABLE JURUSAN (
+    -> kode_jur VARCHAR(5) NOT NULL PRIMARY KEY,
+    -> nama_jur VARCHAR(50) NOT NULL,
+    -> kode_dos CHAR(5) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [week6]> DESC JURUSAN;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| kode_jur | varchar(5)  | NO   | PRI | NULL    |       |
+| nama_jur | varchar(50) | NO   |     | NULL    |       |
+| kode_dos | char(5)     | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.013 sec)
+
+MariaDB [week6]> INSERT INTO JURUSAN (kode_jur, nama_jur, kode_dos) values
+    -> ('TE', 'Teknik Elektro', '10'),
+    -> ('TM', 'Teknik Mesin', '13'),
+    -> ('TS', 'Teknik Sipil', '23');
+Query OK, 3 rows affected (0.004 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> select * from jurusan;
++----------+----------------+----------+
+| kode_jur | nama_jur       | kode_dos |
++----------+----------------+----------+
+| TE       | Teknik Elektro | 10       |
+| TM       | Teknik Mesin   | 13       |
+| TS       | Teknik Sipil   | 23       |
++----------+----------------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [week6]> create table dosen (
+    -> kode_dos CHAR(5) NOT NULL PRIMARY KEY,
+    -> nama_dos VARCHAR(50) NOT NULL,
+    -> alamat_dos VARCHAR(50) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [week6]> DESC DOSEN;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| kode_dos   | char(5)     | NO   | PRI | NULL    |       |
+| nama_dos   | varchar(50) | NO   |     | NULL    |       |
+| alamat_dos | varchar(50) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.015 sec)
+
+MariaDB [week6]> INSERT INTO DOSEN (
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [week6]> INSERT INTO DOSEN (kode
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [week6]> INSERT INTO DOSEN (kode_dos, nama_dos, alamat_dos) values
+    -> ('10', 'Suharto', 'Jl. Jombang'),
+    -> ('11', 'Martono', 'Jl. Kalpataru'),
+    -> ('12', 'Rahmawati', 'Jl. Jakarta'),
+    -> ('13', 'Bambang', 'Jl. Bandung'),
+    -> ('14', 'Nurul', 'Jl. Raya Tidar);
+    '> '
+    -> );
+Query OK, 5 rows affected (0.004 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> select * from dosen;
++----------+-----------+-------------------+
+| kode_dos | nama_dos  | alamat_dos        |
++----------+-----------+-------------------+
+| 10       | Suharto   | Jl. Jombang       |
+| 11       | Martono   | Jl. Kalpataru     |
+| 12       | Rahmawati | Jl. Jakarta       |
+| 13       | Bambang   | Jl. Bandung       |
+| 14       | Nurul     | Jl. Raya Tidar);
+ |
++----------+-----------+-------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [week6]> create table ambil
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 2
+MariaDB [week6]> create table ambil_mk (
+    -> nim CHAR(10) NOT NULL,
+    -> kd_mk VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [week6]> DESC ambil_mk;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| nim   | char(10)    | NO   |     | NULL    |       |
+| kd_mk | varchar(20) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.017 sec)
+
+MariaDB [week6]> Insert into ambil
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 2
+MariaDB [week6]> insert into ambil_mk (nim, kd_mk) values
+    -> ('101', 'PTI447'),
+    -> ('103', 'PTI333'),
+    -> ('104', 'TIK333'),
+    -> ('104', 'PTI777'
+    -> );
+Query OK, 4 rows affected (0.003 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> INSERT INTO ambil_mk (nim, kd_mk) values
+    -> ('105', 'PTI123'),
+    -> ('107', 'PTI777');
+Query OK, 2 rows affected (0.002 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [week6]> select * from ambil_mk;
++-----+--------+
+| nim | kd_mk  |
++-----+--------+
+| 101 | PTI447 |
+| 103 | PTI333 |
+| 104 | TIK333 |
+| 104 | PTI777 |
+| 105 | PTI123 |
+| 107 | PTI777 |
++-----+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [week6]> SELECT * FROM mahasiswa WHERE Jenis_Kelamin = (SELECT Jenis_Kelamin FROM mahasiswa WHERE nama = "Wati");
++-----+------+---------------+--------------+
+| nim | nama | Jenis_Kelamin | Alamat       |
++-----+------+---------------+--------------+
+| 103 | Wati | P             | Jl. Surabaya |
+| 104 | Ika  | P             | Jl. Jombang  |
+| 107 | Sari | P             | Jl. Malang   |
++-----+------+---------------+--------------+
+3 rows in set (0.001 sec)
+
+MariaDB [week6]> SELECT * FROM matakuliah WHERE sks > ANY (SELECT sks FROM matakuliah WHERE semester = 3);
++--------+--------------------------+-----+----------+----------+
+| Kd_MK  | nama_mk                  | SKS | Semester | Kode_Dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK123 | Jaringan Komputer        | 2   | 5        | 33       |
+| TIK333 | Sistem Informassi        | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [week6]> SELECT * FROM matakuliah WHERE SKS > ALL (SELECT sks FROM matakuliah WHERE semester = 3);
++--------+--------------------------+-----+----------+----------+
+| Kd_MK  | nama_mk                  | SKS | Semester | Kode_Dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| TIK333 | Sistem Informassi        | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [week6]> SELECT *
+    -> FROM matakuliah m
+    -> WHERE EXISTS
+    -> (SELECT *
+    -> FROM ambil_mk a
+    -> WHERE m.kd_mk = a.kd_mk);
++--------+--------------------------+-----+----------+----------+
+| Kd_MK  | nama_mk                  | SKS | Semester | Kode_Dos |
++--------+--------------------------+-----+----------+----------+
+| PTI123 | Grafik Multimedia        | 3   | 5        | 12       |
+| PTI333 | Basis Data Terdistribusi | 3   | 5        | 10       |
+| PTI447 | Praktikum Basis Data     | 1   | 3        | 11       |
+| PTI777 | Sistem Informasi         | 2   | 3        | 99       |
+| TIK333 | Sistem Informassi        | 3   | 5        | 10       |
++--------+--------------------------+-----+----------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [week6]> SELECT *
+    -> FROM matakuliah m
+    -> WHERE NOT EXISTS
+    -> (SELECT *
+    -> FROM ambil_mk a
+    -> WHERE m.kd_mk = a.kd_mk);
++--------+----------------------+-----+----------+----------+
+| Kd_MK  | nama_mk              | SKS | Semester | Kode_Dos |
++--------+----------------------+-----+----------+----------+
+| TIK123 | Jaringan Komputer    | 2   | 5        | 33       |
+| TIK342 | Praktikum Basis Data | 1   | 3        | 11       |
++--------+----------------------+-----+----------+----------+
+2 rows in set (0.001 sec)
+
+MariaDB [week6]>
